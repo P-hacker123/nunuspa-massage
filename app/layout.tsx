@@ -10,18 +10,19 @@ export const metadata: Metadata = {
     description: 'From the moment you step through our doors, you\'ll be embraced by a haven of peace designed to relax your senses and rejuvenate your spirit. Located at KG 526 St, Kigali.',
     keywords: 'spa, massage, wellness, Kigali, Rwanda, deep tissue, Swedish massage, aromatherapy, hot stone massage',
     manifest: '/manifest.json',
-    themeColor: '#8B7355',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-    },
     openGraph: {
         title: 'Nunu Spa Massage - Recharge Yourself',
         description: 'Professional spa and massage services in Kigali. Book your relaxation session today.',
         url: 'https://www.nunuspa.com',
         type: 'website',
     },
+}
+
+export const viewport = {
+    themeColor: '#8B7355',
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
 }
 
 import NavbarWrapper from '@/components/NavbarWrapper'

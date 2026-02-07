@@ -56,6 +56,7 @@ export default function InstallPrompt() {
 
     const handleInstallClick = async () => {
         if (!deferredPrompt) {
+            alert("To install, look for the 'Add to Home Screen' or 'Install' option in your browser menu.")
             return
         }
 
@@ -68,7 +69,34 @@ export default function InstallPrompt() {
         // We've used the prompt, and can't use it again, discard it
         setDeferredPrompt(null)
         setShowPrompt(false)
+
+        // Hide navbar buttons
+        document.getElementById('install-button')?.classList.add('hidden');
+        document.getElementById('install-button-mobile')?.classList.add('hidden');
     }
+
+    useEffect(() => {
+        const handleTriggerInstall = () => {
+            console.log('Trigger install event received');
+            handleInstallClick();
+        };
+
+        window.addEventListener('trigger-install', handleTriggerInstall);
+        return () => window.removeEventListener('trigger-install', handleTriggerInstall);
+    }, [deferredPrompt]); // Re-bind if deferredPrompt changes
+
+    // Update navbar buttons visibility when eligibility changes
+    useEffect(() => {
+        const desktopBtn = document.getElementById('install-button');
+        const mobileBtn = document.getElementById('install-button-mobile');
+
+        if (deferredPrompt || isIOS) {
+            desktopBtn?.classList.remove('hidden');
+            desktopBtn?.classList.add('flex');
+            mobileBtn?.classList.remove('hidden');
+            mobileBtn?.classList.add('flex');
+        }
+    }, [deferredPrompt, isIOS]);
 
     const handleDismiss = () => {
         setShowPrompt(false)

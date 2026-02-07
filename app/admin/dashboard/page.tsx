@@ -101,43 +101,37 @@ export default function AdminDashboardPage() {
                 ) : recentBookings.length === 0 ? (
                     <div className="text-center py-8 text-spa-gray-500">No bookings yet</div>
                 ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border-b border-spa-gray-200">
-                                    <th className="text-left py-3 px-4 text-sm font-semibold text-spa-gray-700">Customer</th>
-                                    <th className="text-left py-3 px-4 text-sm font-semibold text-spa-gray-700">Service</th>
-                                    <th className="text-left py-3 px-4 text-sm font-semibold text-spa-gray-700">Date</th>
-                                    <th className="text-left py-3 px-4 text-sm font-semibold text-spa-gray-700">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {recentBookings.map((booking) => (
-                                    <tr key={booking.id} className="border-b border-spa-gray-100 hover:bg-spa-gray-50 transition-colors">
-                                        <td className="py-4 px-4">
-                                            <div className="font-medium text-spa-gray-900">{booking.full_name}</div>
-                                            <div className="text-sm text-spa-gray-500">{booking.phone_number}</div>
-                                        </td>
-                                        <td className="py-4 px-4 text-spa-gray-700">{booking.service_type}</td>
-                                        <td className="py-4 px-4 text-spa-gray-700">
-                                            {new Date(booking.preferred_date).toLocaleDateString()}
-                                        </td>
-                                        <td className="py-4 px-4">
-                                            <span
-                                                className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${booking.status === 'pending'
-                                                        ? 'bg-yellow-100 text-yellow-700'
-                                                        : booking.status === 'confirmed'
-                                                            ? 'bg-blue-100 text-blue-700'
-                                                            : 'bg-purple-100 text-purple-700'
-                                                    }`}
-                                            >
-                                                {booking.status}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {recentBookings.map((booking) => (
+                            <div key={booking.id} className="bg-spa-gray-50 rounded-xl p-5 border border-spa-gray-100 hover:shadow-md transition-shadow">
+                                <div className="flex justify-between items-start mb-3">
+                                    <div>
+                                        <div className="font-bold text-spa-gray-900">{booking.full_name}</div>
+                                        <div className="text-xs text-spa-gray-500">{booking.phone_number}</div>
+                                    </div>
+                                    <span
+                                        className={`px-2 py-1 rounded-full text-xs font-semibold ${booking.status === 'pending'
+                                            ? 'bg-yellow-100 text-yellow-700'
+                                            : booking.status === 'confirmed'
+                                                ? 'bg-blue-100 text-blue-700'
+                                                : 'bg-purple-100 text-purple-700'
+                                            }`}
+                                    >
+                                        {booking.status}
+                                    </span>
+                                </div>
+                                <div className="space-y-1 text-sm">
+                                    <div className="flex items-center text-spa-gray-700">
+                                        <span className="font-medium mr-2">Service:</span>
+                                        {booking.service_type}
+                                    </div>
+                                    <div className="flex items-center text-spa-gray-700">
+                                        <span className="font-medium mr-2">Date:</span>
+                                        {new Date(booking.preferred_date).toLocaleDateString()}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>

@@ -58,6 +58,17 @@ export default function Navbar() {
 
                     {/* Desktop CTA Buttons */}
                     <div className="hidden md:flex items-center gap-4">
+                        <button
+                            id="install-button"
+                            className="hidden items-center gap-2 px-4 py-2 bg-spa-green-100 text-spa-green-700 rounded-lg hover:bg-spa-green-200 transition-colors font-medium text-sm"
+                            onClick={() => {
+                                const event = new CustomEvent('trigger-install');
+                                window.dispatchEvent(event);
+                            }}
+                        >
+                            <Sparkles className="w-4 h-4" />
+                            Install App
+                        </button>
                         <a
                             href="tel:+250787891778"
                             className="flex items-center gap-2 text-spa-gray-700 hover:text-spa-green-600 transition-colors"
@@ -95,6 +106,20 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <div className="pt-2 flex flex-col gap-3">
+                            <button
+                                id="install-button-mobile"
+                                className="hidden flex items-center gap-3 py-3 text-spa-gray-700 hover:text-spa-green-600 transition-colors border-b border-spa-gray-100 w-full text-left"
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    const event = new CustomEvent('trigger-install');
+                                    window.dispatchEvent(event);
+                                }}
+                            >
+                                <div className="w-8 h-8 rounded-full bg-spa-green-50 flex items-center justify-center text-spa-green-600">
+                                    <Sparkles className="w-4 h-4" />
+                                </div>
+                                <span className="font-medium">Install App</span>
+                            </button>
                             <a
                                 href="tel:+250787891778"
                                 className="flex items-center gap-3 py-3 text-spa-gray-700 hover:text-spa-green-600 transition-colors border-b border-spa-gray-100"

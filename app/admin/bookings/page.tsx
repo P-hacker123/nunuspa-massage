@@ -129,56 +129,60 @@ export default function BookingsPage() {
                         <p className="text-spa-gray-500">No bookings found</p>
                     </div>
                 ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead className="bg-spa-gray-50">
-                                <tr className="border-b border-spa-gray-200">
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Name</th>
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Phone</th>
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Service</th>
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Date</th>
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Time</th>
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Status</th>
-                                    <th className="text-left py-4 px-6 text-sm font-semibold text-spa-gray-700">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredBookings.map((booking) => (
-                                    <tr key={booking.id} className="border-b border-spa-gray-100 hover:bg-spa-gray-50 transition-colors">
-                                        <td className="py-4 px-6 text-spa-gray-900 font-medium">{booking.full_name}</td>
-                                        <td className="py-4 px-6 text-spa-gray-600">{booking.phone_number}</td>
-                                        <td className="py-4 px-6 text-spa-gray-700">{booking.service_type}</td>
-                                        <td className="py-4 px-6 text-spa-gray-700">{booking.preferred_date}</td>
-                                        <td className="py-4 px-6 text-spa-gray-700">{booking.preferred_time}</td>
-                                        <td className="py-4 px-6">
-                                            <select
-                                                value={booking.status}
-                                                onChange={(e) => updateStatus(booking.id!, e.target.value)}
-                                                className={`px-3 py-1.5 rounded-full text-xs font-semibold border-0 focus:outline-none focus:ring-2 cursor-pointer ${booking.status === 'pending'
-                                                        ? 'bg-yellow-100 text-yellow-700 focus:ring-yellow-300'
-                                                        : booking.status === 'confirmed'
-                                                            ? 'bg-blue-100 text-blue-700 focus:ring-blue-300'
-                                                            : 'bg-purple-100 text-purple-700 focus:ring-purple-300'
-                                                    }`}
-                                            >
-                                                <option value="pending">Pending</option>
-                                                <option value="confirmed">Confirmed</option>
-                                                <option value="completed">Completed</option>
-                                            </select>
-                                        </td>
-                                        <td className="py-4 px-6">
-                                            <button
-                                                onClick={() => deleteBooking(booking.id!)}
-                                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                title="Delete booking"
-                                            >
-                                                <Trash2 className="w-4 h-4" />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+                        {filteredBookings.map((booking) => (
+                            <div key={booking.id} className="bg-spa-gray-50 rounded-2xl p-5 border border-spa-gray-100 hover:shadow-md transition-all flex flex-col h-full bg-white">
+                                {/* Header */}
+                                <div className="flex justify-between items-start mb-4">
+                                    <div>
+                                        <div className="font-bold text-lg text-spa-gray-900">{booking.full_name}</div>
+                                        <div className="text-sm text-spa-gray-500 font-mono">{booking.phone_number}</div>
+                                    </div>
+                                    <button
+                                        onClick={() => deleteBooking(booking.id!)}
+                                        className="text-spa-gray-400 hover:text-red-500 transition-colors p-1"
+                                        title="Delete booking"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                </div>
+
+                                {/* Body */}
+                                <div className="space-y-3 flex-1 mb-6">
+                                    <div className="flex items-center text-sm text-spa-gray-700 bg-spa-gray-50 p-2 rounded-lg">
+                                        <span className="font-semibold w-16 text-xs uppercase tracking-wider text-spa-gray-400">Service</span>
+                                        <span className="font-medium">{booking.service_type}</span>
+                                    </div>
+                                    <div className="flex items-center text-sm text-spa-gray-700 bg-spa-gray-50 p-2 rounded-lg">
+                                        <span className="font-semibold w-16 text-xs uppercase tracking-wider text-spa-gray-400">Date</span>
+                                        <span className="font-medium">{booking.preferred_date}</span>
+                                    </div>
+                                    <div className="flex items-center text-sm text-spa-gray-700 bg-spa-gray-50 p-2 rounded-lg">
+                                        <span className="font-semibold w-16 text-xs uppercase tracking-wider text-spa-gray-400">Time</span>
+                                        <span className="font-medium">{booking.preferred_time}</span>
+                                    </div>
+                                </div>
+
+                                {/* Footer / Actions */}
+                                <div className="pt-4 border-t border-spa-gray-100">
+                                    <label className="block text-xs font-semibold text-spa-gray-400 mb-2 uppercase tracking-wider">Status</label>
+                                    <select
+                                        value={booking.status}
+                                        onChange={(e) => updateStatus(booking.id!, e.target.value)}
+                                        className={`w-full px-4 py-2 rounded-xl text-sm font-bold border-2 cursor-pointer transition-colors ${booking.status === 'pending'
+                                            ? 'bg-yellow-50 border-yellow-200 text-yellow-700 hover:bg-yellow-100'
+                                            : booking.status === 'confirmed'
+                                                ? 'bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100'
+                                                : 'bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100'
+                                            }`}
+                                    >
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
