@@ -1,18 +1,32 @@
 export default function PageHeader({
     title,
     subtitle,
-    bgImage = "url('/images/hero-bg.jpg')"
+    bgImage = "url('/images/hero-bg.jpg')",
+    backgroundSlot
 }: {
     title: string
     subtitle: string
     bgImage?: string
+    backgroundSlot?: React.ReactNode
 }) {
     return (
         <div className="relative py-24 md:py-32 bg-spa-green-900 overflow-hidden">
-            <div className="absolute inset-0 bg-black/20 z-10" />
-            <div className="absolute inset-0 opacity-30 mix-blend-overlay">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-50" />
-            </div>
+            {backgroundSlot ? (
+                <div className="absolute inset-0 z-0">
+                    {backgroundSlot}
+                </div>
+            ) : (
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute inset-0 bg-black/20 z-10" />
+                    <div className="absolute inset-0 opacity-30 mix-blend-overlay">
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-50" />
+                    </div>
+                </div>
+            )}
+
+            {/* Ensure overlay exists for readability even with backgroundSlot */}
+            <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+
             {/* Decorative circles */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-spa-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-spa-gold rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-y-1/2 -translate-x-1/2" />

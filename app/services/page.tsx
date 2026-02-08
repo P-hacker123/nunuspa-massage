@@ -2,12 +2,19 @@ import PageHeader from '@/components/PageHeader'
 import ServicesSection from '@/components/ServicesSection'
 import BookingSection from '@/components/BookingSection'
 
+import MapEmbed from '@/components/MapEmbed'
+
 export default function ServicesPage() {
     return (
         <main className="min-h-screen pt-20">
             <PageHeader
                 title="Our Treatments"
                 subtitle="Discover our range of relaxing and therapeutic massages designed to rejuvenate your body and mind."
+                backgroundSlot={
+                    <div className="w-full h-full">
+                        <MapEmbed className="w-full h-full object-cover opacity-60" />
+                    </div>
+                }
             />
             <ServicesSection />
             <div className="bg-spa-cream py-16">

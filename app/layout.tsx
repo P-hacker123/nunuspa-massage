@@ -27,6 +27,8 @@ export const viewport = {
 
 import NavbarWrapper from '@/components/NavbarWrapper'
 import InstallPrompt from '@/components/InstallPrompt'
+import GlobalMap from '@/components/GlobalMap'
+import Footer from '@/components/Footer'
 
 // ... imports remain the same
 
@@ -41,6 +43,8 @@ export default function RootLayout({
                 <NavbarWrapper />
                 <InstallPrompt />
                 {children}
+                <GlobalMap />
+                <Footer />
             </body>
         </html>
     )
